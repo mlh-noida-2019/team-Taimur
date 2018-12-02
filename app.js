@@ -15,6 +15,9 @@ app.get("/",function(req,res){
 app.get("/ref",function(req,res){
 	res.render('ref');
 })
+app.get('/fill-me',function(req,res){
+    res.redirect("https://goo.gl/forms/04qab4EGWwQJNcJx1");
+})
 app.get('/getJson',function(req,res){
 	let rawData = fs.readFileSync('data/data.json');
 	res.status(200).send(JSON.parse(rawData));
