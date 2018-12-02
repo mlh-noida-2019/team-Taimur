@@ -10,7 +10,8 @@ app.listen(process.env.PORT || 3000, process.env.IP, function() {
 });
 
 app.get("/",function(req,res){
-	res.render('index');
+	console.log("visit from "+req.connection.remoteAddress);
+    res.render('index');
 })
 app.get("/ref",function(req,res){
 	res.render('ref');
@@ -42,13 +43,13 @@ app.get('/getGformJson',function(req,res){
         }
         _types=Object.keys(types);
         _rank=Object.values(types);
-    	for(var i=0;i<types.length;i++){
-    		responses.nodes.push({'name':_types[i],'type':'1','data':{'size':_rank[i]+25}});
+    	for(var i=0;i<_types.length;i++){
+    		responses.nodes.push({'name':_types[i],'type':'1','data':{'size':(_rank[i]*2)+25}});
     	}
     	for(var i=0;i<data.length;i++){
     		responses.nodes.push({'name':data[i]['Name'],'type':2,'data':{'size':10,'seat_number':data[i]['Seated_at?'],'contact':data[i]['Contact_Detail(email/phone/both)'],'org':data[i]['College/Organization'],'link':data[i]['Profile(fb/git)']}});
-    		responses.links.push({'source':types.length+i,'target':_types.indexOf(data[i]['Expert_at?']),'value':2});
-    		responses.links.push({'source':types.length+i,'target':_types.indexOf(data[i]['Want_to_learn?']),'value':1});
+    		responses.links.push({'source':_types.length+i,'target':_types.indexOf(data[i]['Expert_at?']),'value':2});
+    		responses.links.push({'source':_types.length+i,'target':_types.indexOf(data[i]['Want_to_learn?']),'value':1});
     	}    	
     	res.status(200).send((responses));
     	

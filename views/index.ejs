@@ -12,8 +12,13 @@
 	body{
 		background-image: linear-gradient(to right, #cc2b5e , #753a88);
 	}
+	.ui.segment{
+		width: 30%;
+		float:right;
+		margin-right:50px;
+	}
 
-	</style>
+</style>
 </head>
 
 <body>
@@ -47,7 +52,25 @@
 			</div>
 		</div>
 	</div>
-		<% include ref %>
-	
+	<div class="ui segment">
+		<div class="ui one column stackable center aligned grid">
+			<div class="center aligned row">
+				<div class="column">
+					<% include ref%>
+				</div>
+				<div class="column center">
+					<div class="ui icon header">
+						What is it?
+					</div>
+					<p>
+						A platform where you can connect people from different expertise.
+					</p>
+					<p>
+						<hr>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
