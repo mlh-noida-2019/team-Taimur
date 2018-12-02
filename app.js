@@ -31,9 +31,6 @@ app.get('/getGformJson',function(req,res){
     	var responses={"nodes":[],"links":[],};
     	var types=[];
     	for(var i=0;i<data.length;i++){
-    		/*responses.nodes.push({'name':data[i]['Name'],'type':2,'data':{'size':10,'seat_number':data[i]['Seated_at?'],'contact':data[i]['Contact_Detail(email/phone/both)'],'org':data[i]['College/Organization']}});
-    		responses.links.push({'source':data[i]['Name'],'target':data[i]['Expert_at?'],'value':2});
-    		responses.links.push({'source':data[i]['Name'],'target':data[i]['Want_to_learn?'],'value':1});*/
     		if(types.indexOf(data[i]['Expert_at?'])==-1)
     			types.push(data[i]['Expert_at?']);
     		if(types.indexOf(data[i]['Want_to_learn?'])==-1)
@@ -46,12 +43,7 @@ app.get('/getGformJson',function(req,res){
     		responses.nodes.push({'name':data[i]['Name'],'type':2,'data':{'size':10,'seat_number':data[i]['Seated_at?'],'contact':data[i]['Contact_Detail(email/phone/both)'],'org':data[i]['College/Organization'],'link':data[i]['Profile(fb/git)']}});
     		responses.links.push({'source':types.length+i,'target':types.indexOf(data[i]['Expert_at?']),'value':2});
     		responses.links.push({'source':types.length+i,'target':types.indexOf(data[i]['Want_to_learn?']),'value':1});
-    		/*if(types.indexOf(data[i]['Expert_at?'])==-1)
-    			types.push(data[i]['Expert_at?']);
-    		if(types.indexOf(data[i]['Want_to_learn?'])==-1)
-    			types.push(data[i]['Want_to_learn?']);*/
     	}    	
-    	console.log(responses);
     	res.status(200).send((responses));
     	
     }

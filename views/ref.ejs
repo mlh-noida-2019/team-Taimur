@@ -21,6 +21,7 @@ html *
 .node text {
   pointer-events: none;
   font: 11px sans-serif;
+  
 }
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
@@ -41,6 +42,10 @@ html *
   top: 100%;
   left: 0;
 }
+.skill{
+  font-weight: bold !important;
+  font-size:12px !important;
+}
 .d3-tip {
   line-height: 1;
   font-weight: bold;
@@ -57,7 +62,7 @@ html *
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>
 
-var width = 960,
+var width = 600,
     height = 500
 
 var svg = d3.select("body").append("svg")
@@ -66,11 +71,11 @@ var svg = d3.select("body").append("svg")
 
 var force = d3.layout.force()
     .gravity(0.05)
-    .distance(100)
-    .charge(-100)
+    .distance(150)
+    .charge(-150)
     .size([width, height]);
 
-d3.json("http://localhost:3000/getGformJson", function(error, json) {
+d3.json("http://"+location.host+"/getGformJson", function(error, json) {
   if (error) throw error;
 
   force
@@ -110,12 +115,12 @@ var tip = d3.tip()
       .on('click',function(d){
         //console.log(d.link)
         if(d.type==2)
-          window.open("//"+d.data.link,'_blank')
+          window.open(d.data.link,'_blank')
       });
 
   node.append('circle')
       .attr('r',function(d){return d.data.size})
-      .attr('fill',function(d){if(d.type==1) return "red"; return "blue"});
+      .attr('fill',function(d){if(d.type==1) return "#2874A6"; return "white"});
 
   node.append("image")
       .attr("xlink:href", function(d){
@@ -128,9 +133,18 @@ var tip = d3.tip()
       .attr("height", 16);
 
   node.append("text")
-      .attr("dx", 12)
+      .attr("dx", function(d){
+        if(d.type==1)
+          return -22;
+        else return 12;})
       .attr("dy", ".35em")
-      .attr('font-weight','bold')
+      .attr('fill','white')
+      .attr('class',function(d){
+        if(d.type==1)
+          return "skill";
+        else
+          return "user";
+      })
       .text(function(d) { return d.name });
 
   force.on("tick", function() {
