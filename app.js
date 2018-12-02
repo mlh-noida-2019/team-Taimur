@@ -13,10 +13,11 @@ app.get("/",function(req,res){
 	console.log("visit from "+req.connection.remoteAddress);
     res.render('index');
 })
-app.get("/ref",function(req,res){
+/*app.get("/ref",function(req,res){
 	res.render('ref');
-})
+})*/
 app.get('/fill-me',function(req,res){
+    console.log("fill-me requested from"+req.connection.remoteAddress);
     res.redirect("https://goo.gl/forms/04qab4EGWwQJNcJx1");
 })
 app.get('/getJson',function(req,res){
